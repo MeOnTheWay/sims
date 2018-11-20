@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsCourseGradeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    <constructor>
+      <idArg column="courseGradeId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studentNo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studentName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="grade" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="inputTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="inputDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    <constructor>
+      <idArg column="courseGradeId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studentNo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studentName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="grade" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="inputTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="inputDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="courseCode" javaType="_byte[]" jdbcType="VARBINARY" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    courseGradeId, studentNo, studentName, grade, inputTime, inputDate, updateTime, updateDate
+  </sql>
+  <sql id="Blob_Column_List">
+    courseCode
+  </sql>
+  <!--<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">-->
+    <!--select -->
+    <!--<include refid="Base_Column_List" />-->
+    <!--,-->
+    <!--<include refid="Blob_Column_List" />-->
+    <!--from SIMS_COURSE_GRADE_INFO-->
+    <!--where courseGradeId = #{coursegradeid,jdbcType=VARCHAR}-->
+  <!--</select>-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SIMS_COURSE_GRADE_INFO
+    where courseGradeId = #{coursegradeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    insert into SIMS_COURSE_GRADE_INFO (courseGradeId, studentNo, studentName, 
+      grade, inputTime, inputDate, 
+      updateTime, updateDate, courseCode
+      )
+    values (#{coursegradeid,jdbcType=VARCHAR}, #{studentno,jdbcType=VARCHAR}, #{studentname,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{inputtime,jdbcType=TIMESTAMP}, #{inputdate,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{coursecode,jdbcType=VARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    insert into SIMS_COURSE_GRADE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coursegradeid != null">
+        courseGradeId,
+      </if>
+      <if test="studentno != null">
+        studentNo,
+      </if>
+      <if test="studentname != null">
+        studentName,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="inputtime != null">
+        inputTime,
+      </if>
+      <if test="inputdate != null">
+        inputDate,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="coursecode != null">
+        courseCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coursegradeid != null">
+        #{coursegradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="studentno != null">
+        #{studentno,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null">
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputdate != null">
+        #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coursecode != null">
+        #{coursecode,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    update SIMS_COURSE_GRADE_INFO
+    <set>
+      <if test="studentno != null">
+        studentNo = #{studentno,jdbcType=VARCHAR},
+      </if>
+      <if test="studentname != null">
+        studentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        inputTime = #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputdate != null">
+        inputDate = #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coursecode != null">
+        courseCode = #{coursecode,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where courseGradeId = #{coursegradeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    update SIMS_COURSE_GRADE_INFO
+    set studentNo = #{studentno,jdbcType=VARCHAR},
+      studentName = #{studentname,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      inputTime = #{inputtime,jdbcType=TIMESTAMP},
+      inputDate = #{inputdate,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      courseCode = #{coursecode,jdbcType=VARBINARY}
+    where courseGradeId = #{coursegradeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eva.classsystem.pojo.SimsCourseGradeInfo">
+    update SIMS_COURSE_GRADE_INFO
+    set studentNo = #{studentno,jdbcType=VARCHAR},
+      studentName = #{studentname,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      inputTime = #{inputtime,jdbcType=TIMESTAMP},
+      inputDate = #{inputdate,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP}
+    where courseGradeId = #{coursegradeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsAttendencyDetailInfoMapper">
+
+  <sql id="Base_Column_List">
+    studentNo, courseCode, attendDate, studentName, SIM_signDetailId, attendType, attendTime, 
+    inputTime, inputDate, updateTime, updateDate
+  </sql>
+  <sql id="Blob_Column_List">
+    attendAddress, signDetailId, attendGradeId
+  </sql>
+
+
+
+  <update id="updateByPrimaryKey" parameterType="com.eva.classsystem.pojo.SimsAttendencyDetailInfo">
+    update SIMS_ATTENDENCY_DETAIL_INFO
+    set studentName = #{studentname,jdbcType=VARCHAR},
+      SIM_signDetailId = #{simSigndetailid,jdbcType=VARCHAR},
+      attendType = #{attendType,jdbcType=VARCHAR},
+      attendTime = #{attendtime,jdbcType=VARCHAR},
+      inputTime = #{inputtime,jdbcType=VARCHAR},
+      inputDate = #{inputdate,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=VARCHAR}
+    where studentNo = #{studentno,jdbcType=VARBINARY}
+      and courseCode = #{coursecode,jdbcType=VARCHAR}
+      and attendDate = #{attenddate,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectCheckAttendanceList" parameterType="String" resultType="com.eva.classsystem.pojo.SimsAttendencyDetailInfo">
+     select * from SIMS_ATTENDENCY_DETAIL_INFO where courseCode=#{courseCode} and attendType=#{attendType} Order By attendDate Desc, attendTime DESC
+  </select>
+
+  <select id="selectCheckAttendanceOneList" parameterType="com.eva.classsystem.pojo.QuerySimsAttendencyDetailInfoParam" resultType="com.eva.classsystem.pojo.SimsAttendencyDetailInfo">
+         select * from SIMS_ATTENDENCY_DETAIL_INFO where coursecode=#{courseCode} and attendDate=#{attendDate}  and attendType=#{attendType}
+  </select>
+
+  <update id="updateCheck" >
+    update SIMS_ATTENDENCY_DETAIL_INFO set attendType=#{attendType} where coursecode=#{coursecode} and attendDate=#{attendDate} and STUDENTNO=#{STUDENTNO}
+  </update>
+
+  <delete id="deleteAttendencyDetailInfoByTime">
+    delete from SIMS_ATTENDENCY_DETAIL_INFO where COURSECODE=#{COURSECODE} and ATTENDDATE=#{ATTENDDATE}
+  </delete>
+
+  <select id="selectAttenGroupList" parameterType="String" resultType="com.eva.classsystem.pojo.SimsAttendNum">
+     select t.attendDate as attendDate,
+               t.courseCode as courseCode,
+                  sum(decode(t.attendType,'出勤',1,0)) attence,
+                  sum(decode(t.attendType,'缺勤',1,0)) absence,
+                     sum(decode(t.attendType,'请假',1,0)) leave,
+                        sum(decode(t.attendType,'迟到',1,0)) late
+          from sims_attendency_detail_info t
+          where courseCode=#{courseCode}
+         group by t.courseCode, t.attendDate
+    </select>
+
+    <select id="selectAttendGroupEveryStuList" parameterType="String" resultType="com.eva.classsystem.pojo.SimsAttendNumEveryStu">
+        select t.studentno as studentNo,
+               t.courseCode as courseCode,
+                t.studentname as studentname,
+                  sum(decode(t.attendType,'出勤',1,0)) attence,
+                  sum(decode(t.attendType,'缺勤',1,0)) absence,
+                     sum(decode(t.attendType,'请假',1,0)) leave,
+                        sum(decode(t.attendType,'迟到',1,0)) late
+          from sims_attendency_detail_info t
+          where courseCode=#{courseCode}
+         group by t.courseCode, t.studentno, t.studentname
+    </select>
+
+  <select id="selectAttendStudentalltypeList" resultType="Integer">
+        select count(*) from SIMS_ATTENDENCY_DETAIL_INFO where STUDENTNO=#{STUDENTNO} and COURSECODE=#{COURSECODE} and ATTENDTYPE=#{ATTENDTYPE}
+    </select>
+
+  <insert id="addStuAttendencyDetailInfo">
+    insert into SIMS_ATTENDENCY_DETAIL_INFO (STUDENTNO,STUDENTNAME,COURSECODE,ATTENDDATE,ATTENDTYPE,ATTENDADDRESS,SIGNDETAILID,INPUTTIME) values (#{STUDENTNO},#{STUDENTNAME},#{COURSECODE},#{ATTENDDATE},#{ATTENDTYPE},#{ATTENDADDRESS},#{SIGNDETAILID},#{INPUTTIME})
+  </insert>
+</mapper>

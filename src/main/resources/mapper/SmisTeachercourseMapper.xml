@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SmisTeachercourseMapper">
+  <select id="selectteachercourse" parameterType="Integer" resultType="com.eva.classsystem.pojo.TeacherCourse">
+        select * from SIMS_COURSE_INFO where teacherno=#{teacherno} and status='1'
+  </select>
+  <select id="selectteachercourseclass"  resultType="com.eva.classsystem.pojo.TeacherCourse">
+        select courseclass from SIMS_COURSE_INFO where teacherno=#{teacherno} and status='1' and coursename=#{coursename}
+  </select>
+  
+  <select id="selectclassmsg" parameterType="String">
+    select coursecode from  SIMS_COURSE_INFO where teacherno=#{teacherno} and courseclass=#{courseclass}
+  </select>
+  
+  <select id="selectstudentbycode" parameterType="String" resultType="Integer">
+    select studentno from SIMS_STUDENT_COURSE where coursecode=#{coursecode}
+  </select>
+<!--shiyan-->
+</mapper>

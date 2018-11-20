@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsStudentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsStudentInfo">
+      <result column="userId"  jdbcType="VARCHAR"  property="userId"/>
+      <result column="userName"  jdbcType="VARCHAR" property="userName" />
+      <result column="major" jdbcType="VARCHAR" property="major" />
+      <result column="partment" jdbcType="VARCHAR"  property="partment"/>
+      <result column="sex"  jdbcType="VARCHAR" property="sex"/>
+      <result column="age" jdbcType="VARCHAR" property="age"/>
+      <result column="mobilePhone" jdbcType="VARCHAR" property="mobilePhone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    studentNo as userId,studentName as userName,major,partment,sex,age,mobilephone
+  </sql>
+
+  <insert id="insert" parameterType="com.eva.classsystem.pojo.SimsStudentInfo">
+    insert into SIMS_STUDENT_INFO (STUDENTNO, STUDENTNAME, major,
+      PARTMENT, SEX, AGE, 
+      MOBILEPHONE)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR},
+      #{partment,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eva.classsystem.pojo.SimsStudentInfo">
+    insert into SIMS_STUDENT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        STUDENTNO,
+      </if>
+      <if test="userName != null">
+        STUDENTNAME,
+      </if>
+      <if test="major != null">
+        MAJOR,
+      </if>
+      <if test="partment != null">
+        PARTMENT,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="age != null">
+        AGE,
+      </if>
+      <if test="mobilephone != null">
+        MOBILEPHONE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="partment != null">
+        #{partment,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="selectByPrimaryKey" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SIMS_STUDENT_INFO
+    where studentno = #{studentno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="String">
+    delete from SIMS_STUDENT_INFO
+    where studentno = #{studentno,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

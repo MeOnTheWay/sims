@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsSignDetailInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsSignDetailInfo">
+    <constructor>
+      <idArg column="signDetailId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SIM_signGenId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studentNo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="signType" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="signTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="signAddress" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="courseCode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="inputTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="inputDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="signGenId" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    signDetailId, SIM_signGenId, studentNo, signType, signTime, signAddress, courseCode, 
+    inputTime, inputDate, updateTime, updateDate, signGenId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SIMS_SIGN_DETAIL_INFO
+    where signDetailId = #{signdetailid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SIMS_SIGN_DETAIL_INFO
+    where signDetailId = #{signdetailid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eva.classsystem.pojo.SimsSignDetailInfo">
+    insert into SIMS_SIGN_DETAIL_INFO (signDetailId, SIM_signGenId, studentNo, 
+      signType, signTime, signAddress, 
+      courseCode, inputTime, inputDate, 
+      updateTime, updateDate, signGenId
+      )
+    values (#{signdetailid,jdbcType=VARCHAR}, #{simSigngenid,jdbcType=VARCHAR}, #{studentno,jdbcType=VARCHAR}, 
+      #{signtype,jdbcType=VARCHAR}, #{signtime,jdbcType=TIMESTAMP}, #{signaddress,jdbcType=VARCHAR}, 
+      #{coursecode,jdbcType=VARCHAR}, #{inputtime,jdbcType=TIMESTAMP}, #{inputdate,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{signgenid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eva.classsystem.pojo.SimsSignDetailInfo">
+    insert into SIMS_SIGN_DETAIL_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="signdetailid != null">
+        signDetailId,
+      </if>
+      <if test="simSigngenid != null">
+        SIM_signGenId,
+      </if>
+      <if test="studentno != null">
+        studentNo,
+      </if>
+      <if test="signtype != null">
+        signType,
+      </if>
+      <if test="signtime != null">
+        signTime,
+      </if>
+      <if test="signaddress != null">
+        signAddress,
+      </if>
+      <if test="coursecode != null">
+        courseCode,
+      </if>
+      <if test="inputtime != null">
+        inputTime,
+      </if>
+      <if test="inputdate != null">
+        inputDate,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="signgenid != null">
+        signGenId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="signdetailid != null">
+        #{signdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="simSigngenid != null">
+        #{simSigngenid,jdbcType=VARCHAR},
+      </if>
+      <if test="studentno != null">
+        #{studentno,jdbcType=VARCHAR},
+      </if>
+      <if test="signtype != null">
+        #{signtype,jdbcType=VARCHAR},
+      </if>
+      <if test="signtime != null">
+        #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signaddress != null">
+        #{signaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coursecode != null">
+        #{coursecode,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputdate != null">
+        #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signgenid != null">
+        #{signgenid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eva.classsystem.pojo.SimsSignDetailInfo">
+    update SIMS_SIGN_DETAIL_INFO
+    <set>
+      <if test="simSigngenid != null">
+        SIM_signGenId = #{simSigngenid,jdbcType=VARCHAR},
+      </if>
+      <if test="studentno != null">
+        studentNo = #{studentno,jdbcType=VARCHAR},
+      </if>
+      <if test="signtype != null">
+        signType = #{signtype,jdbcType=VARCHAR},
+      </if>
+      <if test="signtime != null">
+        signTime = #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signaddress != null">
+        signAddress = #{signaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coursecode != null">
+        courseCode = #{coursecode,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        inputTime = #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inputdate != null">
+        inputDate = #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signgenid != null">
+        signGenId = #{signgenid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where signDetailId = #{signdetailid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eva.classsystem.pojo.SimsSignDetailInfo">
+    update SIMS_SIGN_DETAIL_INFO
+    set SIM_signGenId = #{simSigngenid,jdbcType=VARCHAR},
+      studentNo = #{studentno,jdbcType=VARCHAR},
+      signType = #{signtype,jdbcType=VARCHAR},
+      signTime = #{signtime,jdbcType=TIMESTAMP},
+      signAddress = #{signaddress,jdbcType=VARCHAR},
+      courseCode = #{coursecode,jdbcType=VARCHAR},
+      inputTime = #{inputtime,jdbcType=TIMESTAMP},
+      inputDate = #{inputdate,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      signGenId = #{signgenid,jdbcType=VARCHAR}
+    where signDetailId = #{signdetailid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectPersoNumberInSignDetailInfo" resultType="Integer">
+    select count(*) from SIMS_SIGN_DETAIL_INFO where  coursecode=#{courseCode} and inputdate=#{inputDate}
+  </select>
+
+  <delete id="deleteSignDetailInfoByTime">
+    delete from SIMS_SIGN_DETAIL_INFO where COURSECODE=#{courseCode} and INPUTDATE=#{inputDate}
+  </delete>
+
+  <select id="selectAlreadyAttenList" resultType="com.eva.classsystem.pojo.SimsSignDetailInfo">
+      select * from SIMS_SIGN_DETAIL_INFO where COURSECODE=#{courseCode} and  INPUTDATE=#{inputDate}
+  </select>
+
+  <select id="selectAlreadyAttenOne" resultType="com.eva.classsystem.pojo.SimsSignDetailInfo">
+      select * from SIMS_SIGN_DETAIL_INFO where courseCode=#{courseCode} and  inputDate=#{inputDate} and studentNo=#{studentNo}
+  </select>
+
+  <insert id="addStuSignDetail" >
+    insert into SIMS_SIGN_DETAIL_INFO (SIGNDETAILID,SIM_SIGNGENID,STUDENTNO,SIGNTYPE,SIGNADDRESS,COURSECODE,INPUTDATE) values (#{SIGNDETAILID},#{SIM_SIGNGENID},#{STUDENTNO},#{SIGNTYPE},#{SIGNADDRESS},#{COURSECODE},#{INPUTDATE})
+  </insert>
+</mapper>

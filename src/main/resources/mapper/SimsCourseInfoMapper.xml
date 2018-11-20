@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsCourseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsCourseInfo">
+    <constructor>
+      <arg column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COURSECODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COURSENAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TEACHERNO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INPUTTIME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INVITECODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+
+  <insert id="insert" parameterType="com.eva.classsystem.pojo.SimsCourseInfo">
+    insert into SIMS_COURSE_INFO (id, courseName,
+      teacherNo, inputTime,courseId,
+      status,year,term)
+    values (#{id,jdbcType=VARCHAR},  #{courseName,jdbcType=VARCHAR},
+      #{teacherNo,jdbcType=VARCHAR}, #{inputTime,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR},#{year,jdbcType=VARCHAR},#{term,jdbcType=VARCHAR})
+  </insert>
+  
+
+  <select id="selectTeacherCourseList" parameterType="String" resultType="com.eva.classsystem.pojo.SimsCourseInfo">
+        select distinct courseId,courseName,teacherno,inputtime from SIMS_COURSE_INFO where teacherno=#{teacherno} and status='1'
+  </select>
+
+  <select id="selectClassMsg" parameterType="String">
+    select coursecode from  SIMS_COURSE_INFO where teacherno=#{teacherno} and courseclass=#{courseclass}
+  </select>
+
+  <!--<insert id="addClass" >-->
+    <!--insert into SIMS_COURSE_INFO (ID,COURSENAME,TEACHERNO,INPUTTIME,INVITECODE,STATUS,COURSEID) values (#{ID},#{COURSENAME},#{TEACHERNO},#{INPUTTIME},#{INVITECODE},#{STATUS},#{COURSEID})-->
+  <!--</insert>-->
+
+  <update id="updateClass">
+     update SIMS_COURSE_INFO set COURSECLASS=#{COURSECLASS},COURSECODE=#{COURSECODE}  where ID=#{ID}
+  </update>
+
+
+
+    <select id="selectCourseInfoByParam" parameterType="com.eva.classsystem.pojo.QueryCourseParam" resultType="com.eva.classsystem.pojo.SimsCourseInfo">
+        select * from SIMS_COURSE_INFO s where s.courseId = #{courseId} and s.teacherNo= #{teacherNo}
+    </select>
+    
+
+
+    <delete id="deleteCourseInfo" >
+            delete from SIMS_COURSE_INFO where COURSEID=#{COURSEID}
+    </delete>
+
+    <select id="selectCourseInfoByCourseid" parameterType="String" resultType="com.eva.classsystem.pojo.SimsCourseInfo">
+        select * from SIMS_COURSE_INFO where COURSEID=#{COURSEID}
+    </select>
+    
+
+
+    <update id="updateCourse" >
+        update SIMS_COURSE_INFO set COURSENAME=#{COURSENAME} where COURSEID=#{COURSEID}
+    </update>
+
+
+</mapper>

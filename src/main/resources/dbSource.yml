@@ -1,0 +1,4 @@
+driver: oracle.jdbc.driver.OracleDriver
+url: jdbc:oracle:thin:@10.60.144.106:1521:orcl
+username: ZW_20180921
+password: pass

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsClassInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsCourseInfo">
+    <constructor>
+      <arg column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COURSECODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COURSENAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TEACHERNO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INPUTTIME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INVITECODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.eva.classsystem.pojo.SimsClassInfo">
+    insert into sims_class_info (id, COURSECODE, COURSENAME,
+      TEACHERNO, INPUTTIME, INVITECODE, 
+      STATUS,courseId,courseclass)
+    values (#{id,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR},
+      #{teacherNo,jdbcType=VARCHAR}, #{inputTime,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR},#{courseClass,jdbcType=VARCHAR})
+  </insert>
+
+  <select id="selectTeacherCourseClassList"  resultType="com.eva.classsystem.pojo.SimsClassInfo">
+        select * from SIMS_CLASS_INFO where teacherno=#{teacherno} and status='1' and courseid=#{courseid}
+  </select>
+
+  <delete id="deleteClassInfo" >
+            delete from SIMS_CLASS_INFO where COURSECODE=#{COURSECODE}
+    </delete>
+
+  <delete id="deleteClassInfoMost" >
+            delete from SIMS_CLASS_INFO where COURSEID=#{COURSEID}
+    </delete>
+
+  <update id="updateClassbian" >
+     update SIMS_CLASS_INFO set COURSECLASS=#{COURSECLASS} where COURSECODE=#{COURSECODE}
+  </update>
+
+  <select id="selectCourseNameByCode" parameterType="String" resultType="com.eva.classsystem.pojo.SimsClassInfo">
+    select * from SIMS_CLASS_INFO where  courseCode=#{courseCode}
+  </select>
+
+  <select id="selectCourseInfoByInvitecode" parameterType="String" resultType="com.eva.classsystem.pojo.SimsClassInfo">
+    select * from SIMS_CLASS_INFO where INVITECODE=#{INVITECODE}
+  </select>
+
+</mapper>

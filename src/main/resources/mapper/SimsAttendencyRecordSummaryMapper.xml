@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsAttendencyRecordSummaryMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsAttendencyRecordSummary">
+    <constructor>
+      <idArg column="attendGradeId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="studentNo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attend" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="leave" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="late" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="affair" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="attendGrade" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="inputTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="inputDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    attendGradeId, studentNo, attend, leave, late, affair, attendGrade, inputTime, inputDate, 
+    updateTime, updateDate
+  </sql>
+  <sql id="Blob_Column_List">
+    studentName, courseCode
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SIMS_ATTENDENCY_RECORD_SUMMARY
+    where attendGradeId = #{attendgradeid,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updateByPrimaryKey" parameterType="com.eva.classsystem.pojo.SimsAttendencyRecordSummary">
+    update SIMS_ATTENDENCY_RECORD_SUMMARY
+    set studentNo = #{studentno,jdbcType=VARCHAR},
+      attend = #{attend,jdbcType=VARCHAR},
+      leave = #{leave,jdbcType=VARCHAR},
+      late = #{late,jdbcType=VARCHAR},
+      affair = #{affair,jdbcType=VARCHAR},
+      attendGrade = #{attendgrade,jdbcType=VARCHAR},
+      inputTime = #{inputtime,jdbcType=TIMESTAMP},
+      inputDate = #{inputdate,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP}
+    where attendGradeId = #{attendgradeid,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="addStuAttendencyRecordSummary">
+    insert into SIMS_ATTENDENCY_RECORD_SUMMARY (ATTENDGRADEID,STUDENTNO,STUDENTNAME,COURSECODE,ATTEND,LEAVE,LATE,AFFAIR) values (#{ATTENDGRADEID},#{STUDENTNO},#{STUDENTNAME},#{COURSECODE},#{ATTEND},#{LEAVE},#{LATE},#{AFFAIR})
+  </insert>
+
+  <select id="selectAttSummaryByStuNum" parameterType="String" resultType="com.eva.classsystem.pojo.SimsAttendencyRecordSummary">
+      select * from SIMS_ATTENDENCY_RECORD_SUMMARY where studentNo=#{studentNo} and courseCode=#{courseCode}
+  </select>
+
+  <update id="updateAttSummaryAttend" >
+        update SIMS_ATTENDENCY_RECORD_SUMMARY set ATTEND=#{ATTEND},LEAVE=#{LEAVE},LATE=#{LATE},AFFAIR=#{AFFAIR}  where STUDENTNO=#{STUDENTNO} and COURSECODE=#{COURSECODE}
+  </update>
+
+  <update id="updateAttSummaryAttendByParam" parameterType="com.eva.classsystem.pojo.QuerySimsAttendencyRecordSummaryParam">
+        update SIMS_ATTENDENCY_RECORD_SUMMARY t
+    <set>
+      <if test="attend != null">
+        t.attend = #{attend},
+      </if>
+      <if test="leave != null">
+        t.leave = #{leave},
+      </if>
+      <if test="late != null">
+        t.late = #{late},
+      </if>
+      <if test="affair != null">
+        t.affair = #{affair},
+      </if>
+    </set>
+    where studentNo=#{studentNo} and courseCode = #{courseCode}
+  </update>
+
+
+
+</mapper>

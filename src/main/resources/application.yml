@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    #driver-class-name: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://10.60.144.102:3306/class_attendance?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+    #username: root
+    #password: 123321
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.60.144.106:1521:orcl
+    username: ZW_20180921
+    password: pass
+  mvc:
+    view:
+      prefix: /WEB-INF/templates/
+      suffix: .jsp
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+logging:
+  file: /export/log
+  level:
+    org.springframework.web: INFO
+    com.github.binarywang.demo.wx.cp: DEBUG
+    me.chanjar.weixin: DEBUG
+wechat:
+  cp:
+    corpId: wx37444b703da28035
+    appConfigs:
+    - agentId: 1000015
+      secret: xDCd5L309kJRcPox8KdY4ygBhTH43bjv16UZlF69VgI
+      token: uu6IQbQUhDeMbOpVjyTKt5qI
+      aesKey: S3EfNr8EEFxaPGStsOzW73PM4zxFKCGXAavGtGKzEpi
+server:
+  port: 8080
+cas:
+  client-host-url: http://weixin.tunnel.qydev.com/login
+  server-login-url: http://pass.zwu.edu.cn/cas/login
+  server-url-prefix: http://pass.zwu.edu.cn/cas
+  authentication-url-patterns[0]: /login/login
+  validation-type: CAS
+

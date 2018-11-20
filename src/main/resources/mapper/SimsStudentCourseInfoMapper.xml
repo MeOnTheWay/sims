@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eva.classsystem.mapper.SimsStudentCourseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eva.classsystem.pojo.SimsStudentCourseInfo">
+    <constructor>
+      <arg column="STUDENTNO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COURSECODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INPUTTIME" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.eva.classsystem.pojo.SimsStudentCourseInfo">
+    insert into SIMS_STUDENT_COURSE_INFO (STUDENTNO, COURSECODE, INPUTTIME
+      )
+    values (#{studentno,jdbcType=VARCHAR}, #{coursecode,jdbcType=VARCHAR}, #{inputtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eva.classsystem.pojo.SimsStudentCourseInfo">
+    insert into SIMS_STUDENT_COURSE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentno != null">
+        STUDENTNO,
+      </if>
+      <if test="coursecode != null">
+        COURSECODE,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentno != null">
+        #{studentno,jdbcType=VARCHAR},
+      </if>
+      <if test="coursecode != null">
+        #{coursecode,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectCoursecodeByStuNoList" parameterType="String" resultType="com.eva.classsystem.pojo.SimsStudentCourseInfo">
+    select * from SIMS_STUDENT_COURSE_INFO where studentno=#{studentno}
+  </select>
+
+  <select id="selectStudentByCodeList" parameterType="String" resultType="Integer">
+    select studentno from SIMS_STUDENT_COURSE_INFO where coursecode=#{coursecode}
+  </select>
+
+  <select id="selectXkxx" parameterType="String" resultType="Integer">
+    select count(*) from SIMS_STUDENT_COURSE_INFO where COURSECODE=#{COURSECODE}
+  </select>
+
+  <select id="selectStuCourseInfoList" parameterType="String" resultType="com.eva.classsystem.pojo.SimsStudentCourseInfo">
+    select * from SIMS_STUDENT_COURSE_INFO where COURSECODE=#{COURSECODE}
+  </select>
+
+  <delete id="deleteStudentCourseInfo" >
+            delete from SIMS_STUDENT_COURSE_INFO where COURSECODE=#{COURSECODE}
+    </delete>
+
+  <select id="selectTeacherByCode" parameterType="String" resultType="com.eva.classsystem.pojo.SimsTeacherInfo">
+    select teacherNo as userId,teacherName as userName,SEX,AGE,PARTMENT  from SIMS_TEACHER_INFO  where  teacherno=#{teacherno}
+  </select>
+
+
+  <select id="selectStuBynum" parameterType="String" resultType="com.eva.classsystem.pojo.SimsStudentInfo">
+     select STUDENTNO as userId,STUDENTNAME as userName ,major,mobilePhone,PARTMENT,SEX,AGE from SIMS_STUDENT_INFO where studentno=#{studentno}
+  </select>
+
+
+  <insert id="addStuCourseInfo" >
+    insert  into SIMS_STUDENT_COURSE_INFO (STUDENTNO,COURSECODE,INPUTTIME) values (#{STUDENTNO},#{COURSECODE},#{INPUTTIME})
+  </insert>
+
+  <select id="selectStudentNumName" parameterType="String" resultType="com.eva.classsystem.pojo.SimsStudentNameNum">
+    select a.studentno,b.studentname,a.coursecode from SIMS_STUDENT_COURSE_INFO a left join
+    SIMS_STUDENT_INFO b on a.studentno=b.studentno where coursecode=#{coursecode}
+  </select>
+
+  <select id ="queryCourseId"  resultType="String">
+        select course_id.nextval from dual
+  </select>
+
+  <select id ="queryStuId"  resultType="String">
+        select Stu_id.nextval from dual
+  </select>
+
+</mapper>
